@@ -41,6 +41,7 @@ function renderOverviewCharts() {
     type: 'bar',
     data: {
       labels: dailyData.labels,
+      dates: dailyData.dates, // Store dates for fries overlay
       datasets: [
         { label: 'Meat Fryer 1', data: dailyData.basketCounts['Meat Fryer 1'], backgroundColor: 'rgba(155,89,182,0.7)', borderRadius: 2 },
         { label: 'Meat Fryer 2', data: dailyData.basketCounts['Meat Fryer 2'], backgroundColor: 'rgba(52,73,94,0.7)', borderRadius: 2 },

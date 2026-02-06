@@ -73,6 +73,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Initialize date filter
   initDateFilter();
 
-  // Init overview dashboard with loaded data
+  // Init overview dashboard
   if (typeof initOverview === 'function') initOverview();
+
+  // Load orders data for fries overlay
+  if (typeof loadOrdersData === 'function') {
+    await loadOrdersData();
+    // Add fries overlay to both daily and hourly charts
+    if (typeof addFriesOverlayToDailyChart === 'function') {
+      addFriesOverlayToDailyChart();
+    }
+    if (typeof addFriesOverlayToHourlyChart === 'function') {
+      addFriesOverlayToHourlyChart();
+    }
+  }
 });

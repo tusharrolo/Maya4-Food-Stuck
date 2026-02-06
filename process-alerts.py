@@ -67,8 +67,12 @@ def process_alerts():
     print(f'Processing {len(files)} files...')
 
     for file_path in files:
-        with open(file_path, 'r') as f:
-            data = json.load(f)
+        try:
+            with open(file_path, 'r') as f:
+                data = json.load(f)
+        except json.JSONDecodeError as e:
+            print(f'Skipping {file_path.name}: JSON decode error - {e}')
+            continue
 
         for message in data:
             if not isinstance(message, dict):
@@ -88,6 +92,10 @@ def process_alerts():
             status = extract_status(text)
 
             if not basket:
+                continue
+
+            # Skip resolved alerts - they're not actual occurrences
+            if status == 'resolved':
                 continue
 
             # Parse timestamp and convert to SGT
